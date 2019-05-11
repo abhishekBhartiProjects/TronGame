@@ -4,5 +4,7 @@
 
 ![alt text](https://github.com/abhishekBhartiProjects/TronGame/blob/master/tronGame.png)
 
+![alt text](https://github.com/abhishekBhartiProjects/TronGame/blob/master/tronGame2.png)
+
 
 
