@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 import java.math.*;
+import java.util.Arrays; 
 
 /**
  * Auto-generated code below aims at helping you parse
@@ -53,41 +54,46 @@ class Player {
     
     private static String getOutput(HashMap<String, Boolean> pathtraced, int myX, int myY){
         if(myX == xMax || myX == xMin){
-            if(isTopAvailable(pathtraced, myX, myY, 1)){
-                return UP;
-            } else if(isDownAvailable(pathtraced, myX, myY, 1)){
-                return DOWN;
-            }  else if(isLeftAvailable(pathtraced, myX, myY, 1)){
-                return LEFT;
-            } else if (isRightAvailable(pathtraced, myX, myY, 1)){
-                return RIGHT;
-            }
+            // if(isTopAvailable(pathtraced, myX, myY, 1)){
+            //     return UP;
+            // } else if(isDownAvailable(pathtraced, myX, myY, 1)){
+            //     return DOWN;
+            // }  else if(isLeftAvailable(pathtraced, myX, myY, 1)){
+            //     return LEFT;
+            // } else if (isRightAvailable(pathtraced, myX, myY, 1)){
+            //     return RIGHT;
+            // }
+            
+            return decideDirection(pathtraced, myX, myY);
         }
         
         if(myY == yMax || myY == yMin){
-            if(isLeftAvailable(pathtraced, myX, myY, 1)){
-                return LEFT;
-            } else if (isRightAvailable(pathtraced, myX, myY, 1)){
-                return RIGHT;
-            }  else if (isTopAvailable(pathtraced, myX, myY, 1)){
-                return UP;
-            }  else if(isDownAvailable(pathtraced, myX, myY, 1)){
-                return DOWN;
-            }  
+            // if(isLeftAvailable(pathtraced, myX, myY, 1)){
+            //     return LEFT;
+            // } else if (isRightAvailable(pathtraced, myX, myY, 1)){
+            //     return RIGHT;
+            // }  else if (isTopAvailable(pathtraced, myX, myY, 1)){
+            //     return UP;
+            // }  else if(isDownAvailable(pathtraced, myX, myY, 1)){
+            //     return DOWN;
+            // } 
+            
+            return decideDirection(pathtraced, myX, myY);
         }
         
-        if(isLeftAvailable(pathtraced, myX, myY, 1)){
-            return LEFT;
-        } else if (isRightAvailable(pathtraced, myX, myY, 1)){
-            return RIGHT;
-        }  else if (isTopAvailable(pathtraced, myX, myY, 1)){
-            return UP;
-        }  else if(isDownAvailable(pathtraced, myX, myY, 1)){
-            return DOWN;
-        }  
+        // if(isLeftAvailable(pathtraced, myX, myY, 1)){
+        //     return LEFT;
+        // } else if (isRightAvailable(pathtraced, myX, myY, 1)){
+        //     return RIGHT;
+        // }  else if (isTopAvailable(pathtraced, myX, myY, 1)){
+        //     return UP;
+        // }  else if(isDownAvailable(pathtraced, myX, myY, 1)){
+        //     return DOWN;
+        // }  
+        
+        return decideDirection(pathtraced, myX, myY);
         
         
-        return "RIGHT";    
     }
     
     private static boolean isTopAvailable(HashMap<String, Boolean> pathtraced, int myX, int myY, int steps){
@@ -97,7 +103,7 @@ class Player {
             }    
         }
         
-        if(myY == yMin){
+        if(myY-steps+1 == yMin){
             return false;    
         }
         
@@ -111,7 +117,7 @@ class Player {
             }    
         }
         
-        if(myY == yMax){
+        if(myY+steps-1 == yMax){
             return false;    
         }
         
@@ -125,7 +131,7 @@ class Player {
             }    
         }
         
-        if(myX == xMin){
+        if(myX-steps+1 == xMin){
             return false;    
         }
         
@@ -139,7 +145,7 @@ class Player {
             }    
         }
         
-        if(myX == xMax){
+        if(myX+steps-1 == xMax){
             return false;    
         }
         
@@ -150,29 +156,65 @@ class Player {
         
         int availableRight = 0, availableLeft = 0, availableUp = 0, availableDown = 0;
         
-        return "";
+        //availableUp
+        for(int i = 1; i< yMax; i++){
+            if(isTopAvailable(pathtraced, myX, myY, i)){
+                availableUp = i;    
+            } else{
+                break;    
+            }
+        }
+        
+        //availableDown
+        for(int i = 1; i< yMax; i++){
+            if(isDownAvailable(pathtraced, myX, myY, i)){
+                availableDown = i;    
+            } else{
+                break;    
+            }
+        }
+        
+        //availableLeft
+        for(int i = 1; i< xMax; i++){
+            if(isLeftAvailable(pathtraced, myX, myY, i)){
+                availableLeft = i;    
+            } else{
+                break;    
+            }
+        }
+        
+        //availableRight
+        for(int i = 1; i< xMax; i++){
+            if(isRightAvailable(pathtraced, myX, myY, i)){
+                availableRight = i;    
+            } else{
+                break;    
+            }
+        }
+        
+        String directionWithMaxSpace = RIGHT; //init value
+        int arr[] = {availableRight, availableLeft, availableUp, availableDown}; 
+        int max = Arrays.stream(arr).max().getAsInt();
+        
+        if(availableRight == max){
+            directionWithMaxSpace = RIGHT;    
+        } else if(availableLeft == max){
+            directionWithMaxSpace = LEFT;    
+        } else if(availableUp == max){
+            directionWithMaxSpace = UP;    
+        } else if(availableDown == max){
+            directionWithMaxSpace = DOWN;    
+        }
+        
+        System.err.println("R->"+availableRight+" L->"+availableLeft+" U->"+availableUp+" D->"+availableDown);
+        System.err.println("Deciding for ("+myX+" , "+myY+") : " + directionWithMaxSpace);
+        
+        return directionWithMaxSpace;
         
     }
     
       
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
