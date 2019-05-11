@@ -75,14 +75,14 @@ class Player {
         }
         
         if(isLeftAvailable(pathtraced, myX, myY)){
-                return LEFT;
-            } else if (isRightAvailable(pathtraced, myX, myY)){
-                return RIGHT;
-            }  else if (isTopAvailable(pathtraced, myX, myY)){
-                return UP;
-            }  else if(isDownAvailable(pathtraced, myX, myY)){
-                return DOWN;
-            }  
+            return LEFT;
+        } else if (isRightAvailable(pathtraced, myX, myY)){
+            return RIGHT;
+        }  else if (isTopAvailable(pathtraced, myX, myY)){
+            return UP;
+        }  else if(isDownAvailable(pathtraced, myX, myY)){
+            return DOWN;
+        }  
         
         
         return "RIGHT";    
@@ -146,3 +146,24 @@ class Player {
     
       
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
