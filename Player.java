@@ -13,6 +13,7 @@ class Player {
     private static String RIGHT = "RIGHT";
     private static int xMax = 29, xMin = 0;
     private static int yMax = 19, yMin = 0;
+    private static String movingDirection = "";
     
     
     
@@ -45,42 +46,43 @@ class Player {
             // Write an action using System.out.println()
             // To debug: System.err.println("Debug messages...");
             String output = getOutput(pathtraced, myX, myY);
+            movingDirection = output;
             System.out.println(output); // A single line with UP, DOWN, LEFT or RIGHT
         }
     }
     
     private static String getOutput(HashMap<String, Boolean> pathtraced, int myX, int myY){
         if(myX == xMax || myX == xMin){
-            if(isTopAvailable(pathtraced, myX, myY)){
+            if(isTopAvailable(pathtraced, myX, myY, 1)){
                 return UP;
-            } else if(isDownAvailable(pathtraced, myX, myY)){
+            } else if(isDownAvailable(pathtraced, myX, myY, 1)){
                 return DOWN;
-            }  else if(isLeftAvailable(pathtraced, myX, myY)){
+            }  else if(isLeftAvailable(pathtraced, myX, myY, 1)){
                 return LEFT;
-            } else if (isRightAvailable(pathtraced, myX, myY)){
+            } else if (isRightAvailable(pathtraced, myX, myY, 1)){
                 return RIGHT;
             }
         }
         
         if(myY == yMax || myY == yMin){
-            if(isLeftAvailable(pathtraced, myX, myY)){
+            if(isLeftAvailable(pathtraced, myX, myY, 1)){
                 return LEFT;
-            } else if (isRightAvailable(pathtraced, myX, myY)){
+            } else if (isRightAvailable(pathtraced, myX, myY, 1)){
                 return RIGHT;
-            }  else if (isTopAvailable(pathtraced, myX, myY)){
+            }  else if (isTopAvailable(pathtraced, myX, myY, 1)){
                 return UP;
-            }  else if(isDownAvailable(pathtraced, myX, myY)){
+            }  else if(isDownAvailable(pathtraced, myX, myY, 1)){
                 return DOWN;
             }  
         }
         
-        if(isLeftAvailable(pathtraced, myX, myY)){
+        if(isLeftAvailable(pathtraced, myX, myY, 1)){
             return LEFT;
-        } else if (isRightAvailable(pathtraced, myX, myY)){
+        } else if (isRightAvailable(pathtraced, myX, myY, 1)){
             return RIGHT;
-        }  else if (isTopAvailable(pathtraced, myX, myY)){
+        }  else if (isTopAvailable(pathtraced, myX, myY, 1)){
             return UP;
-        }  else if(isDownAvailable(pathtraced, myX, myY)){
+        }  else if(isDownAvailable(pathtraced, myX, myY, 1)){
             return DOWN;
         }  
         
@@ -88,9 +90,9 @@ class Player {
         return "RIGHT";    
     }
     
-    private static boolean isTopAvailable(HashMap<String, Boolean> pathtraced, int myX, int myY){
+    private static boolean isTopAvailable(HashMap<String, Boolean> pathtraced, int myX, int myY, int steps){
         for(int i=0; i< totalPlayers; i++){
-            if(pathtraced.containsKey(i+"_"+myX+"_"+(myY-1))){
+            if(pathtraced.containsKey(i+"_"+myX+"_"+(myY-steps))){
                 return false;    
             }    
         }
@@ -102,9 +104,9 @@ class Player {
         return true;
     }
     
-    private static boolean isDownAvailable(HashMap<String, Boolean> pathtraced, int myX, int myY){
+    private static boolean isDownAvailable(HashMap<String, Boolean> pathtraced, int myX, int myY, int steps){
         for(int i=0; i< totalPlayers; i++){
-            if(pathtraced.containsKey(i+"_"+myX+"_"+(myY+1))){
+            if(pathtraced.containsKey(i+"_"+myX+"_"+(myY+steps))){
                 return false;    
             }    
         }
@@ -116,9 +118,9 @@ class Player {
         return true;
     }
     
-    private static boolean isLeftAvailable(HashMap<String, Boolean> pathtraced, int myX, int myY){
+    private static boolean isLeftAvailable(HashMap<String, Boolean> pathtraced, int myX, int myY, int steps){
         for(int i=0; i< totalPlayers; i++){
-            if(pathtraced.containsKey(i+"_"+(myX-1)+"_"+(myY))){
+            if(pathtraced.containsKey(i+"_"+(myX-steps)+"_"+(myY))){
                 return false;    
             }    
         }
@@ -130,9 +132,9 @@ class Player {
         return true;
     }
     
-    private static boolean isRightAvailable(HashMap<String, Boolean> pathtraced, int myX, int myY){
+    private static boolean isRightAvailable(HashMap<String, Boolean> pathtraced, int myX, int myY, int steps){
         for(int i=0; i< totalPlayers; i++){
-            if(pathtraced.containsKey(i+"_"+(myX+1)+"_"+(myY))){
+            if(pathtraced.containsKey(i+"_"+(myX+steps)+"_"+(myY))){
                 return false;    
             }    
         }
@@ -142,6 +144,14 @@ class Player {
         }
         
         return true;
+    }
+    
+    private static String decideDirection(HashMap<String, Boolean> pathtraced, int myX, int myY){
+        
+        int availableRight = 0, availableLeft = 0, availableUp = 0, availableDown = 0;
+        
+        return "";
+        
     }
     
       
